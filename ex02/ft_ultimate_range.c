@@ -1,49 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabd-ram <mabd-ram@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 17:06:50 by mabd-ram          #+#    #+#             */
-/*   Updated: 2024/05/16 22:46:52 by mabd-ram         ###   ########.fr       */
+/*   Created: 2024/05/16 22:05:20 by mabd-ram          #+#    #+#             */
+/*   Updated: 2024/05/16 22:56:15 by mabd-ram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	*ft_range(int min, int max)
 {
+	int	*arr;
+	int	range;
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	ft_strcpy(char *dest, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
+	range = max - min;
+	if (min >= max)
+		return (NULL);
+	arr = (int *) malloc(sizeof(int) * range);
+	while (min < max)
 	{
-		dest[i] = str[i];
+		arr[i] = min;
+		min++;
 		i++;
 	}
-	dest[i] = '\0';
+	return (arr);
 }
 
-char	*ft_strdup(char *src)
+int	ft_ultimate_range(int **range, int min, int max)
 {
-	int		len;
-	char	*dup;
-
-	len = ft_strlen(src);
-	dup = (char *)malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	ft_strcpy(dup, src);
-	return (dup);
+	if (min >= max)
+	{
+		*range = NULL;
+		return (0);
+	}
+	*range = ft_range(min, max);
+	if (*range == NULL)
+		return (-1);
+	return (max - min);
 }
